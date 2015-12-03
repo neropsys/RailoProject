@@ -98,10 +98,10 @@ namespace RailroProject
         }
 
         // Get data
-        public void get()
+        public void get(string s)
         {
             string buf;
-            System.IO.StreamReader file = new System.IO.StreamReader(@"OD_201301.txt", Encoding.Default);
+            System.IO.StreamReader file = new System.IO.StreamReader(s, Encoding.Default);
             while ((buf = file.ReadLine()) != null)
             {
                 if (counter > 7)
