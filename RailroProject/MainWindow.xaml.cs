@@ -23,6 +23,10 @@ namespace RailroProject
         public MainWindow()
         {
             InitializeComponent();
+
+            // Data file I/O test code
+            //Data data = new Data();
+            //data.get();
         }
     }
 }
