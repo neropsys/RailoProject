@@ -113,6 +113,7 @@ namespace RailroProject
                         string buf2 = seperateion[5].Replace("\"", "");
                         buf2 = buf2.Replace(" ", "");
                         buf2 = buf2.Replace(",", "");
+                        buf2 = buf2.Replace("-", "0");
                         flow[x, y] = Convert.ToInt32(buf2);
                     }
                 }

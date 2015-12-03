@@ -24,11 +24,19 @@ namespace RailroProject
         {
             InitializeComponent();
             
-            // Data file I/O test code
+            //// Data file I/O test code
+            //Data data = new Data();
+            //data.get(@"OD_201301.txt");
             Data[] data = new Data[9];
-            for (int x = 0; x < 9;x++ )
+
+            string txt = @"OD_201301.txt";
+            char[] buf = txt.ToCharArray();
+            for (int x = 0; x < 9; x++)
             {
-                data[x].get(@"OD_201301.txt");
+                string buf2 = new string(buf);
+                data[x] = new Data();
+                data[x].get(buf2);
+                buf[8]++;
             }       
         }
     }
