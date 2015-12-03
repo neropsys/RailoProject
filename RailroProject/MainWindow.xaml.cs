@@ -32,9 +32,9 @@ namespace RailroProject
             {
                 string buf2 = new string(buf);
                 data[x] = new Data();
-                data[x].get(buf2);
+                data[x].make(buf2);
                 buf[8]++;
-            }       
+            }
         }
     }
 }

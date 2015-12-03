@@ -5,7 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
+ * Get, Set 는 생략
+
  * 한국어
+ * class Node
+   역을 뜻하는 노드 클래스를 만들어서 line과 number을 관리함
+   바뀌지 않고, 어디서나 읽기만 하니 static으로 선언함
+
  * string[] line
    역 이름들 모아놓은 스트링 <= 소영이가 요구함
  
@@ -33,7 +39,9 @@ using System.Threading.Tasks;
    3. 둘 다 2호선이면 이동인구에 해당하는 스트링에
       필요 없는 데이터들을 지움, 예를들자면 단위를 표시하기 위해 사용한 , 라던가 강조하려고 쓴 "
    4. 데이터를 int형으로 변환한뒤에 데이터를 flow 매트릭스에 집어 넣음, 좌표의 경우 ( seperation[1], seperation[3] ) 위치에
+ 
  * English
+ * 
  * string[] line
    Station name will be used for next part
  
@@ -49,7 +57,7 @@ using System.Threading.Tasks;
    There are 7 useless lines.
    I need to skip that lines, so I use counter
 
- * get()
+ * make()
    get a line and find data which we need, and push that data in flow matrix
    1. Read 1 line from .txt
    2. Match station number
@@ -64,7 +72,9 @@ namespace RailroProject
     public class Data
     {
         // Station name
-        string[] line = {"서울대입구", "낙성대", "사당","방배","서초", "교대",
+        public static class Node
+        {
+            static string[] line = {"서울대입구", "낙성대", "사당","방배","서초", "교대",
                             "강남","역삼","선릉","삼성","종합운동장","신천",
                             "잠실","잠실나루","강변","구의","건대입구","성수","뚝섬",
                             "한양대", "왕십리", "상왕십리","신당","동대문역사문화공원",
@@ -72,8 +82,8 @@ namespace RailroProject
                             "이대","신촌","홍대입구","합정","도림천","양천구청","신정네거리",
                             "까치산","용답","신답","용두","신설동","당산","영등포구청",
                             "문래","신도림","대림","구로디지털단지","신대방","신림","봉천"};
-        // Station number
-        int[] number ={228, 227, 226, 225, 224, 223,
+            // Station number
+            static int[] number ={228, 227, 226, 225, 224, 223,
                            222, 221, 220, 219, 218, 217,
                            216, 215, 214, 213, 212, 211, 210,
                            209, 208, 207, 206, 205,
@@ -81,8 +91,17 @@ namespace RailroProject
                            241, 240, 239, 238, 247, 248, 249,
                            2519, 244, 245, 250, 246, 237, 236,
                            235, 234, 233, 232, 231, 230, 229};
+
+            public static string lineGet(int x){
+                return line[x];
+            }
+            public static int numberGet(int x){
+                return number[x];
+            }
+        }
+        
         // People movement
-        int[,] flow = new int[51, 51];
+        public int[,] flow = new int[51, 51];
         // Counter
         int counter;
 
@@ -97,8 +116,8 @@ namespace RailroProject
             }
         }
 
-        // Get data
-        public void get(string s)
+        // Make data
+        public void make(string s)
         {
             string path = @"C:\Users\우준혁\Documents\RailoProject\";
             string buf;
@@ -123,13 +142,33 @@ namespace RailroProject
             }
         }
 
+        // Get flow data
+        public int get(int x, int y){
+            return flow[x, y];
+        }
+
+        // Get counter
+        public int counterGet(int x){
+            return counter;
+        }
+
+        // Get Node name
+        public string nodeLineGet(int index){
+            return Node.lineGet(index);
+        }
+
+        // Get Node number
+        public int nodeNumberGet(int index){
+            return Node.numberGet(index);
+        }
+
         // Matching
         int match(string s)
         {
             int num = Convert.ToInt16(s);
             for (int x = 0; x < 51; x++)
             {
-                if (num == number[x])
+                if (num == Node.numberGet(x))
                     return x;
             }
             return -1;
