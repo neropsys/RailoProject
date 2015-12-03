@@ -25,8 +25,11 @@ namespace RailroProject
             InitializeComponent();
             
             // Data file I/O test code
-            Data data = new Data();
-            data.get(@"OD_201301.txt");
+            Data[] data = new Data[9];
+            for (int x = 0; x < 9;x++ )
+            {
+                data[x].get(@"OD_201301.txt");
+            }       
         }
     }
 }
