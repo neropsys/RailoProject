@@ -100,8 +100,10 @@ namespace RailroProject
         // Get data
         public void get(string s)
         {
+            string path = @"C:\Users\우준혁\Documents\RailoProject\";
             string buf;
-            System.IO.StreamReader file = new System.IO.StreamReader(s, Encoding.Default);
+            path = path + s;
+            System.IO.StreamReader file = new System.IO.StreamReader(path, Encoding.Default);
             while ((buf = file.ReadLine()) != null)
             {
                 if (counter > 7)
