@@ -123,15 +123,6 @@ namespace RailroProject
             }
         }
 
-        // Set data
-        public void set(string s)
-        {
-            for(int x=0;x<9;x++)
-            {
-
-            }
-        }
-
         // Matching
         int match(string s)
         {
