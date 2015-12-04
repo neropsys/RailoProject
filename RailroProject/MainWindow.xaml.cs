@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace RailroProject
@@ -18,23 +17,12 @@ namespace RailroProject
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : UserControl
+    public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
-            
-            //// Data file I/O test code
-            Data[] data = new Data[9];
-            string txt = @"OD_201301.txt";
-            char[] buf = txt.ToCharArray();
-            for (int x = 0; x < 9; x++)
-            {
-                string buf2 = new string(buf);
-                data[x] = new Data();
-                data[x].make(buf2);
-                buf[8]++;
-            }
+            this.Title = "Data Structure";
         }
     }
 }
