@@ -119,7 +119,9 @@ namespace RailroProject
         // Make data
         public void make(string s)
         {
-            string path = @"C:\Users\우준혁\Documents\RailoProject\";
+            //when you test this method, PLEASE UPDATE BELOW PATH TO YOUR PATH!!
+            //이거 테스트할 때 프로젝트 경로 여러분 걸로 꼭!!! 업데이트 해주세요!! 안그럼 런타임에러남
+            string path = @"C:\Users\Jisu\Documents\GitHub\RailoProject\";
             string buf;
             path = path + s;
             System.IO.StreamReader file = new System.IO.StreamReader(path, Encoding.Default);
