@@ -6,7 +6,9 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:controls="http://schemes.grabacr.net/winfx/2014/controls"
         xmlns:chrome="http://schemes.grabacr.net/winfx/2014/chrome"
-        Title="MainWindow" Height="300" Width="500">
+        Title="MainWindow" Height="300" Width="500"
+        MinHeight="300" MinWidth="500"
+    >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
