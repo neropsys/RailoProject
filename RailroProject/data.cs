@@ -129,11 +129,11 @@ namespace RailroProject
             {
                 if (counter > 7)
                 {
-                    string[] seperateion = buf.Split('\t');
-                    int x = match(seperateion[1]), y = match(seperateion[3]);
+                    string[] seperation = buf.Split('\t');
+                    int x = match(seperation[1]), y = match(seperation[3]);
                     if (x != -1 && y != -1)
                     {
-                        string buf2 = seperateion[5].Replace("\"", "");
+                        string buf2 = seperation[5].Replace("\"", "");
                         buf2 = buf2.Replace(" ", "");
                         buf2 = buf2.Replace(",", "");
                         buf2 = buf2.Replace("-", "0");
