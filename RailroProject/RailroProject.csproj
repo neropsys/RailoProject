@@ -96,6 +96,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data.cs" />
+    <Compile Include="DataEdge.cs" />
+    <Compile Include="DataVertex.cs" />
+    <Compile Include="GraphArea.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>

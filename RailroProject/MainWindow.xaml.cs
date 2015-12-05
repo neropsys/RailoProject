@@ -23,7 +23,7 @@ namespace RailroProject
         {
             InitializeComponent();
             this.Title = "Data Structure";
-
+            /*
             //// Data file I/O test code
             Data[] data = new Data[9];
             string txt = @"OD_201301.txt";
@@ -35,7 +35,7 @@ namespace RailroProject
                 data[x] = new Data();
                 data[x].make(buf2);
                 buf[8]++;
-            }
+            }*/
         }
     }
 }
