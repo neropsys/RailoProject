@@ -1,16 +1,12 @@
-﻿using System;
+﻿using GraphX;
+using QuickGraph;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using GraphX.PCL.Common.Enums;
+using GraphX.PCL.Logic.Algorithms.LayoutAlgorithms;
+using GraphX.Controls;
 
 namespace RailroProject
 {
@@ -23,7 +19,10 @@ namespace RailroProject
         {
             InitializeComponent();
             this.Title = "Data Structure";
-            /*
+            ZoomControl.SetViewFinderVisibility(zoomctrl, Visibility.Visible);
+            zoomctrl.ZoomToFill();
+            
+            
             //// Data file I/O test code
             Data[] data = new Data[9];
             string txt = @"OD_201301.txt";
@@ -35,7 +34,9 @@ namespace RailroProject
                 data[x] = new Data();
                 data[x].make(buf2);
                 buf[8]++;
-            }*/
+            }
         }
+       
+
     }
 }
