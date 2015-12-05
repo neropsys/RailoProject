@@ -13,6 +13,8 @@ namespace RailroProject
         {
             this.fileName = fileName;
         }
+        private const float originLong = 37.368345f;
+        private const float originLat = 126.648967f;
         public List<DataVertex> getStationNode()
         {
             List<DataVertex> ret = new List<DataVertex>();
@@ -29,8 +31,9 @@ namespace RailroProject
             while ((buf = file.ReadLine()) != null)
             {
                 string[] data = buf.Split(' ');
-                ret.Add(new DataVertex(data[0], float.Parse(data[1]), float.Parse(data[2])));
+                ret.Add(new DataVertex(data[0], (float.Parse(data[1])-originLong)*1000, -(float.Parse(data[2])-originLat)*1000));
             }
+            ret.Add(new DataVertex("0, 0 in screen", 0, 0));
             file.Close();
             return ret;
         }

@@ -28,6 +28,7 @@ namespace RailroProject
         }
         public DataVertex(string text, float longitude, float latitude)
         {
+            StationName = text;
             location.latitude = latitude;
             location.longitude = longitude;
         }

@@ -28,6 +28,7 @@ namespace RailroProject
         }
         public void Compute(CancellationToken cancellationToken)
         {
+         
             foreach (var vertex in _graph.Vertices)
             {
                 _vertexPositions.Add(vertex, new Point(vertex.location.longitude, vertex.location.latitude));
@@ -51,5 +52,6 @@ namespace RailroProject
         {
             get { return _vertexPositions; }
         }
+        
     }
 }
