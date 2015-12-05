@@ -93,12 +93,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataGraphArea.cs" />
+    <Compile Include="VertexLayoutAlgorithm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data.cs" />
     <Compile Include="DataEdge.cs" />
+    <Compile Include="DataReader.cs" />
     <Compile Include="DataVertex.cs" />
-    <Compile Include="GraphArea.cs" />
+    <Compile Include="DataGraph.cs" />
+    <Compile Include="GraphLogicCore.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>

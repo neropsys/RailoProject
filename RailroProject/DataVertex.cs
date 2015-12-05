@@ -10,15 +10,26 @@ namespace RailroProject
 {
     class DataVertex : VertexBase
     {
-        public string Text { get; set; }
+        public struct Location
+        {
+            public float longitude;
+            public float latitude;
+        }
+        public Location location;
+        public string StationName { get; set; }
         public override string ToString()
         {
-            return Text;
+            return StationName;
         }
         public DataVertex() : this("") { }
         public DataVertex(string text = "")
         {
-            Text = text;
+            StationName = text;
+        }
+        public DataVertex(string text, float longitude, float latitude)
+        {
+            location.latitude = latitude;
+            location.longitude = longitude;
         }
     }
 }

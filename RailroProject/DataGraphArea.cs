@@ -7,7 +7,7 @@ using GraphX.Controls;
 
 namespace RailroProject
 {
-    class GraphArea : GraphArea<DataVertex, DataEdge, BidirectionalGraph<DataVertex, DataEdge>>
+    class DataGraphArea : GraphArea<DataVertex, DataEdge, BidirectionalGraph<DataVertex, DataEdge>>
     {
     }
 }

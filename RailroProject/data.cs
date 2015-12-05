@@ -123,7 +123,7 @@ namespace RailroProject
             //이거 테스트할 때 프로젝트 경로 여러분 걸로 꼭!!! 업데이트 해주세요!! 안그럼 런타임에러남
             //경로 팀원마다 수정 안하게 되도 돌아가게 바꿔놈
             var projectPath = System.IO.Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.FullName;
-            string path = System.IO.Directory.GetParent(projectPath.ToString()).FullName + "/"; //Environment.CurrentDirectory;// @" C:\Users\Jisu\Documents\GitHub\RailoProject\";
+            string path = System.IO.Directory.GetParent(projectPath.ToString()).FullName + "/";
             string buf;
             path = path + s;
             System.IO.StreamReader file = new System.IO.StreamReader(path, Encoding.Default);
@@ -144,6 +144,7 @@ namespace RailroProject
                 }
                 counter++;
             }
+            file.Close();
         }
 
         // Get flow data
