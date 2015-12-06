@@ -16,7 +16,7 @@ namespace RailroProject
     public partial class MainWindow
     {
         private List<DataVertex> stations;
-
+        private List<DataEdge> connections;
         public MainWindow()
         {
             InitializeComponent();
@@ -24,12 +24,12 @@ namespace RailroProject
             ZoomControl.SetViewFinderVisibility(zoomctrl, Visibility.Visible);
             zoomctrl.ZoomToFill();
 
-            /*
+            
             //// Data file I/O test code
             Data[] data = new Data[9];
             string txt = @"OD_201301.txt";
             char[] buf = txt.ToCharArray();
-
+            /*
             for (int x = 0; x < 9; x++)
             {
                 string buf2 = new string(buf);
@@ -37,8 +37,24 @@ namespace RailroProject
                 data[x].make(buf2);
                 buf[8]++;
             }*/
+            string buf2 = new string(buf);
+            data[0] = new Data();
+            data[0].make(buf2);
+            buf[8]++;
+
             DataReader stationReader = new DataReader("2line.txt");
             stations = stationReader.getStationNode();
+
+            connections = new List<DataEdge>(3000);
+
+            for(int source=0; source<stations.Count; source++){
+                for(int destination=source; destination< stations.Count; destination++){
+                    int weight = data[0].get(source, destination);
+                    if(weight>10000){
+                        connections.Add(new DataEdge(stations.ElementAt(source), stations.ElementAt(destination), 1));
+                    }
+                }
+            }
 
             GraphArea_Setup();
             Area.GenerateGraph(true, true);
@@ -51,6 +67,10 @@ namespace RailroProject
             foreach (DataVertex station in stations)
             {
                 graph.AddVertex(station);
+            }
+            foreach (var connection in connections)
+            {
+                graph.AddEdge(connection);
             }
             return graph;
             
