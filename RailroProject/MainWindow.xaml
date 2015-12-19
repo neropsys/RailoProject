@@ -48,7 +48,9 @@
                 xmlns:controls ="http://schemas.panthernet.ru/graphx/"
                 xmlns:local ="clr-namespace:RailroProject">
             <controls:ZoomControl x:Name="zoomctrl" Grid.Row="1">
-                <local:DataGraphArea x:Name="Area"/>
+                <local:DataGraphArea x:Name="Area"
+                                     TextBlock.Foreground="Black"
+                                     />
             </controls:ZoomControl>
             
         </Border>

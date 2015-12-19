@@ -92,6 +92,10 @@ namespace RailroProject
                            2519, 244, 245, 250, 246, 237, 236,
                            235, 234, 233, 232, 231, 230, 229};
 
+            public static int size() {
+                return line.GetLength(0);
+            }
+
             public static string lineGet(int x){
                 return line[x];
             }
@@ -101,7 +105,7 @@ namespace RailroProject
         }
         
         // People movement
-        public int[,] flow = new int[51, 51];
+        public int[,] flow = new int[Node.size(), Node.size()];
         // Counter
         int counter;
 
@@ -109,9 +113,9 @@ namespace RailroProject
         public Data()
         {
             counter = 0;
-            for (int x = 0; x < 51; x++)
+            for (int x = 0; x < Node.size(); x++)
             {
-                for (int y = 0; y < 51; y++)
+                for (int y = 0; y < Node.size(); y++)
                     flow[x, y] = 0;
             }
         }
@@ -119,8 +123,6 @@ namespace RailroProject
         // Make data
         public void make(string s)
         {
-            //when you test this method, PLEASE UPDATE BELOW PATH TO YOUR PATH!!
-            //이거 테스트할 때 프로젝트 경로 여러분 걸로 꼭!!! 업데이트 해주세요!! 안그럼 런타임에러남
             //경로 팀원마다 수정 안하게 되도 돌아가게 바꿔놈
             var projectPath = System.IO.Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.FullName;
             string path = System.IO.Directory.GetParent(projectPath.ToString()).FullName + "/";
@@ -171,12 +173,33 @@ namespace RailroProject
         int match(string s)
         {
             int num = Convert.ToInt16(s);
-            for (int x = 0; x < 51; x++)
+            for (int x = 0; x < Node.size(); x++)
             {
                 if (num == Node.numberGet(x))
                     return x;
             }
             return -1;
         }
+        //converts digraph flow to undirected graph
+        public void getUndirected()
+        {
+            int[,] newFlow = new int[Node.size(), Node.size()];
+            for (int x = 0; x < Node.size(); x++)
+            {
+                for (int y = 0; y < Node.size(); y++)
+                {
+                    if (y >= x)
+                    {   //newFlow[x,y] is the average of flow[x,y] and flow[y,x]
+                        newFlow[x, y] = (flow[x, y] + flow[y,x])/2;
+                    }
+                    else
+                    {
+                        newFlow[x, y] = 0;
+                    }
+                }
+            }
+            this.flow = newFlow;
+        }
+        
     }
 }

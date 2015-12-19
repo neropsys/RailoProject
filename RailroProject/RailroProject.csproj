@@ -93,10 +93,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataAnalyzer.cs" />
     <Compile Include="DataGraphArea.cs" />
     <Compile Include="VertexLayoutAlgorithm.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClusteringAlgorithms.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="DataEdge.cs" />
     <Compile Include="DataReader.cs" />
@@ -123,7 +125,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

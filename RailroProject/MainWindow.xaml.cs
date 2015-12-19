@@ -37,10 +37,16 @@ namespace RailroProject
                 data[x].make(buf2);
                 buf[8]++;
             }*/
+
             string buf2 = new string(buf);
             data[0] = new Data();
             data[0].make(buf2);
             buf[8]++;
+
+            //DataAnalyzer analyse = new DataAnalyzer();
+            //analyse.analyseSimilarity(data[0]);
+
+            data[0].getUndirected();
 
             DataReader stationReader = new DataReader("2line.txt");
             stations = stationReader.getStationNode();
@@ -64,8 +70,10 @@ namespace RailroProject
         private DataGraph Graph_Setup()
         {
             DataGraph graph = new DataGraph();
+            
             foreach (DataVertex station in stations)
             {
+                
                 graph.AddVertex(station);
             }
             foreach (var connection in connections)
@@ -86,7 +94,7 @@ namespace RailroProject
             logicCore.ExternalLayoutAlgorithm = layoutAlgorithm;
 
             logicCore.DefaultOverlapRemovalAlgorithm = OverlapRemovalAlgorithmTypeEnum.FSA;
-
+            
             logicCore.DefaultOverlapRemovalAlgorithmParams.HorizontalGap = 80;
             logicCore.DefaultOverlapRemovalAlgorithmParams.VerticalGap = 80;
             logicCore.DefaultEdgeRoutingAlgorithm = EdgeRoutingAlgorithmTypeEnum.SimpleER;
@@ -94,9 +102,13 @@ namespace RailroProject
             Area.LogicCore = logicCore;
             foreach (var vertex in Area.VertexList)
             {
+                var converter = new System.Windows.Media.BrushConverter();
+
+                vertex.Value.Foreground =(System.Windows.Media.Brush) converter.ConvertFromString("#000000");
                 vertex.Value.SetPosition(vertex.Key.location.longitude, vertex.Key.location.latitude, false);
 
             }
+            
             Area.RelayoutGraph(true);
         }
        

@@ -31,6 +31,7 @@ namespace RailroProject
             StationName = text;
             location.latitude = latitude;
             location.longitude = longitude;
+            
         }
     }
 }
