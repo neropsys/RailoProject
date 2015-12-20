@@ -29,13 +29,30 @@ using System.Threading.Tasks;
    뛰어서 다른 데이터들 받아야해서 카운팅 하는데 사용
    데이터 얼마나 되는지 측정하는데에도 유용할듯(?)
  
+        +현경 
+    내가 쓴 파일 대로 하면 counter ㄴㄴ 그래서 카운더는 굳이 넣지 않았음!! 
+    
+    + wooku data : 운행년월   출발역코드   출발역명   도착역코드   도착역명   인원   역간거리(km)
+    + hyunkyung data  사용년월   승차역   하차역   사용자   이용인원
+    + 
+
  * get()
+ hk. 
+    0.사용년월   승차역   하차역   사용자   이용인원
+    1.한 줄을 받아서 나눔, 5개로 분할 됨 - > 7개로 바꾸어줌 
+    2. 최대한 우준혁하고 비슷하게 할려고 함 그래서 코드를 받아와서 역명을 알게 함 
+ 3. 역간거리는 Null로 초기화함 
+ 4. 대상은 거리 다음에 있음(역간거리다음에)
+ 5. *Flow에 덮는다 Make_New를 사용하면 최신 데이터(날짜가 최신껄로)업데이트됨 만약 내 데이터가 없으면 우준데이터가 살아있고 있으면
+ 모.. 우준처럼 죽음 ㅎ 
+ 
    .txt 파일로부터 데이터를 flow에 집어넣은 함수
    0. 앞에 필요없는 7줄의 정보는 건너뜀
-   1. 한 줄을 받아서 나눔, 7개로 분할됨
+   1. 한 줄을 받아서 나눔, 7개로 분할됨 
    2. 그 중에서 역 번호를 갖고 있는 2개, serperation[1], seperation[3] 과
       number 를 이용해서 출발 역과 도착 역 모두 2호선인지를 확인
       2호선일 경우에는 각각의 인덱스를 받아옴, 2호선이 아닐경우에는 -1을 반환함
+      //다 2호
    3. 둘 다 2호선이면 이동인구에 해당하는 스트링에
       필요 없는 데이터들을 지움, 예를들자면 단위를 표시하기 위해 사용한 , 라던가 강조하려고 쓴 "
    4. 데이터를 int형으로 변환한뒤에 데이터를 flow 매트릭스에 집어 넣음, 좌표의 경우 ( seperation[1], seperation[3] ) 위치에
@@ -92,18 +109,31 @@ namespace RailroProject
                            2519, 244, 245, 250, 246, 237, 236,
                            235, 234, 233, 232, 231, 230, 229};
 
-            public static int size() {
+            public static int getnumberIndex(string s)
+            {
+                /* 디버깅 결과
+                *  1. binarysearch 함수를 쓰려면 매개변수로 쓰이는 array가 이미 sorting되어 있어야 합니다.
+                *  2. 비교대상이 되는 스트링 s는 integer형태로 바꾸어주어야 합니다. Int32.Parse()함수를 쓰면 돼요.
+                */
+                int debug = Array.BinarySearch(Node.number, Int32.Parse(s));
+                return 0;
+            }
+
+            public static int size()
+            {
                 return line.GetLength(0);
             }
 
-            public static string lineGet(int x){
+            public static string lineGet(int x)
+            {
                 return line[x];
             }
-            public static int numberGet(int x){
+            public static int numberGet(int x)
+            {
                 return number[x];
             }
         }
-        
+
         // People movement
         public int[,] flow = new int[Node.size(), Node.size()];
         // Counter
@@ -148,24 +178,59 @@ namespace RailroProject
             }
             file.Close();
         }
+        //hyunkyung
+        public void make_new(string s)
+        {
+            //경로 팀원마다 수정 안하게 되도 돌아가게 바꿔놈
+            var projectPath = System.IO.Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.FullName;
+            string path = System.IO.Directory.GetParent(projectPath.ToString()).FullName + "/";
+            string buf;
+            path = path + s;
+            System.IO.StreamReader file = new System.IO.StreamReader(path, Encoding.Default);
+            while ((buf = file.ReadLine()) != null)
+            {
+                if (counter > 0)
+                {
+                    string[] buf2 = new string[8];
+                    string[] seperation = buf.Split('\t');
+                    int x = match(seperation[1]), y = match(seperation[2]);
+                    buf2[0] = seperation[0];
+                    buf2[1] = seperation[1];
+                    buf2[2] = Node.lineGet(Node.getnumberIndex(seperation[2]));
+                    buf2[3] = seperation[3];
+                    buf2[4] = Node.lineGet(Node.getnumberIndex(seperation[4]));
+                    buf2[5] = seperation[6];
+                    buf2[6] = null;
+                    buf2[7] = seperation[5];
+
+                    flow[x, y] = Convert.ToInt32(buf2);
+                }
+                counter++;
+            }
+            file.Close();
+        }
 
         // Get flow data
-        public int get(int x, int y){
+        public int get(int x, int y)
+        {
             return flow[x, y];
         }
 
         // Get counter
-        public int counterGet(int x){
+        public int counterGet(int x)
+        {
             return counter;
         }
 
         // Get Node name
-        public string nodeLineGet(int index){
+        public string nodeLineGet(int index)
+        {
             return Node.lineGet(index);
         }
 
         // Get Node number
-        public int nodeNumberGet(int index){
+        public int nodeNumberGet(int index)
+        {
             return Node.numberGet(index);
         }
 
@@ -190,7 +255,7 @@ namespace RailroProject
                 {
                     if (y >= x)
                     {   //newFlow[x,y] is the average of flow[x,y] and flow[y,x]
-                        newFlow[x, y] = (flow[x, y] + flow[y,x])/2;
+                        newFlow[x, y] = (flow[x, y] + flow[y, x]) / 2;
                     }
                     else
                     {
@@ -200,6 +265,6 @@ namespace RailroProject
             }
             this.flow = newFlow;
         }
-        
+
     }
 }
