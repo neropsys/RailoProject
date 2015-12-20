@@ -98,7 +98,7 @@
     <Compile Include="VertexLayoutAlgorithm.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClusteringAlgorithms.cs" />
+    <Compile Include="Algorithm.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="DataEdge.cs" />
     <Compile Include="DataReader.cs" />
