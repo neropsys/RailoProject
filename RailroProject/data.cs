@@ -120,16 +120,12 @@ namespace RailroProject
             public static int getnumberIndex(string s)
             {
 
-                /* 디버깅 결과
-                *  1. binarysearch 함수를 쓰려면 매개변수로 쓰이는 array가 이미 sorting되어 있어야 합니다.
-                *  2. 비교대상이 되는 스트링 s는 integer형태로 바꾸어주어야 합니다. Int32.Parse()함수를 쓰면 돼요.
-                */
-
                 int i;
                 for (i = 0; i < 73 ; i++)
                 {
                     if (Node.number[i] == Int32.Parse(s)) break;
                 }
+
                 if (i == Node.size()) return -1;
                 if (i >= 51)
                 {
@@ -160,6 +156,7 @@ namespace RailroProject
                     }
                 }
                 //int debug = Array.BinarySearch(Node.number, Int32.Parse(s));
+
 
                 return i;
             }
@@ -193,6 +190,19 @@ namespace RailroProject
                 for (int y = 0; y < Node.size(); y++)
                     flow[x, y] = 0;
             }
+        }
+
+        //copy constructor
+        public Data(Data data)
+        {
+            for (int i = 0; i < Node.size(); i++)
+            {
+                for (int j = 0; j < Node.size(); j++)
+                {
+                    this.flow[i, j] = data.flow[i, j];
+                }
+            }
+            this.counter = data.counter;
         }
 
         // Make data
@@ -345,11 +355,7 @@ namespace RailroProject
                 {
                     if (y >= x)
                     {   //newFlow[x,y] is the average of flow[x,y] and flow[y,x]
-                        newFlow[x, y] = (flow[x, y] + flow[y, x]) / 2;
-                    }
-                    else
-                    {
-                        newFlow[x, y] = 0;
+                        newFlow[y,x] = newFlow[x, y] = (flow[x, y] + flow[y, x]) / 2;
                     }
                 }
             }
