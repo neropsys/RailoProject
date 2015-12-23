@@ -106,17 +106,27 @@ namespace RailroProject
                            209, 208, 207, 206, 205,
                            204, 203, 202, 201, 243, 242,
                            241, 240, 239, 238, 247, 248, 249,
-                           2519, 244, 245, 250, 246, 237, 236,
+                           251, 244, 245, 250, 246, 237, 236,
                            235, 234, 233, 232, 231, 230, 229};
 
             public static int getnumberIndex(string s)
             {
+
                 /* 디버깅 결과
                 *  1. binarysearch 함수를 쓰려면 매개변수로 쓰이는 array가 이미 sorting되어 있어야 합니다.
                 *  2. 비교대상이 되는 스트링 s는 integer형태로 바꾸어주어야 합니다. Int32.Parse()함수를 쓰면 돼요.
                 */
-                int debug = Array.BinarySearch(Node.number, Int32.Parse(s));
-                return 0;
+
+                int i;
+                for (i = 0; i < 51; i++)
+                {
+                    if (Node.number[i] == Int32.Parse(s)) break;
+                }
+                if (i == 51) return -1;
+
+                //int debug = Array.BinarySearch(Node.number, Int32.Parse(s));
+
+                return i;
             }
 
             public static int size()
