@@ -7,6 +7,8 @@ using System.Windows;
 using GraphX.PCL.Common.Enums;
 using GraphX.PCL.Logic.Algorithms.LayoutAlgorithms;
 using GraphX.Controls;
+using System.IO;
+using System.Text;
 
 namespace RailroProject
 {
@@ -48,11 +50,37 @@ namespace RailroProject
 
             data[0].getUndirected();
 
+            Algorithm algo = new Algorithm(data[0]);
+            for (int i = 0; i < 50; i++)
+            {
+                List<int> partition = algo.GetMinCut();
+                algo.deleteNode(partition);
+                List<String> names = new List<String>();
+                for (int j = 0; j < partition.Count; j++)
+                {
+                    names.Add(Data.Node.lineGet(partition[j]));
+                }
+                //write result to a file
+                Encoding encode = System.Text.Encoding.GetEncoding("ks_c_5601-1987");
+                //Stream s = File.OpenWrite("partition_result_1.txt");
+                using (FileStream fs = new FileStream("partition_result_1.txt", FileMode.Append, FileAccess.Write))
+                using (StreamWriter sr = new StreamWriter(fs, encode))
+                {
+                    for (int k = 0; k < names.Count; k++)
+                    {
+                        sr.Write(names[k]+" ");
+                    }
+                    sr.WriteLine("");
+                    sr.Close();
+                }
+                int debug = 1;
+            }
+            //List<int> partition_2 = algo.GetMinCut();
+
             DataReader stationReader = new DataReader("2line.txt");
             stations = stationReader.getStationNode();
 
             connections = new List<DataEdge>(3000);
-
             for(int source=0; source<stations.Count; source++){
                 for(int destination=source; destination< stations.Count; destination++){
                     int weight = data[0].get(source, destination);

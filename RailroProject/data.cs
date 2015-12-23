@@ -150,6 +150,19 @@ namespace RailroProject
             }
         }
 
+        //copy constructor
+        public Data(Data data)
+        {
+            for (int i = 0; i < Node.size(); i++)
+            {
+                for (int j = 0; j < Node.size(); j++)
+                {
+                    this.flow[i, j] = data.flow[i, j];
+                }
+            }
+            this.counter = data.counter;
+        }
+
         // Make data
         public void make(string s)
         {
@@ -255,11 +268,7 @@ namespace RailroProject
                 {
                     if (y >= x)
                     {   //newFlow[x,y] is the average of flow[x,y] and flow[y,x]
-                        newFlow[x, y] = (flow[x, y] + flow[y, x]) / 2;
-                    }
-                    else
-                    {
-                        newFlow[x, y] = 0;
+                        newFlow[y,x] = newFlow[x, y] = (flow[x, y] + flow[y, x]) / 2;
                     }
                 }
             }
