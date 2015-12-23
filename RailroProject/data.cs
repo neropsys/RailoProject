@@ -112,19 +112,12 @@ namespace RailroProject
             public static int getnumberIndex(string s)
             {
 
-                /* 디버깅 결과
-                *  1. binarysearch 함수를 쓰려면 매개변수로 쓰이는 array가 이미 sorting되어 있어야 합니다.
-                *  2. 비교대상이 되는 스트링 s는 integer형태로 바꾸어주어야 합니다. Int32.Parse()함수를 쓰면 돼요.
-                */
-
                 int i;
                 for (i = 0; i < 51; i++)
                 {
                     if (Node.number[i] == Int32.Parse(s)) break;
                 }
                 if (i == 51) return -1;
-
-                //int debug = Array.BinarySearch(Node.number, Int32.Parse(s));
 
                 return i;
             }

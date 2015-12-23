@@ -26,6 +26,7 @@ namespace RailroProject
             ZoomControl.SetViewFinderVisibility(zoomctrl, Visibility.Visible);
             zoomctrl.ZoomToFill();
 
+            DataAnalyzer analysis = new DataAnalyzer();
             
             //// Data file I/O test code
             Data[] data = new Data[9];
@@ -49,7 +50,9 @@ namespace RailroProject
             //analyse.analyseSimilarity(data[0]);
 
             data[0].getUndirected();
+            analysis.analyseCongestion(data[0]);
 
+            /*
             Algorithm algo = new Algorithm(data[0]);
             for (int i = 0; i < 50; i++)
             {
@@ -76,7 +79,7 @@ namespace RailroProject
                 int debug = 1;
             }
             //List<int> partition_2 = algo.GetMinCut();
-
+*/
             DataReader stationReader = new DataReader("2line.txt");
             stations = stationReader.getStationNode();
 
