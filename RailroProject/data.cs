@@ -98,7 +98,11 @@ namespace RailroProject
                             "을지로4가","을지로3가","을지로입구","시청","충정로","아현",
                             "이대","신촌","홍대입구","합정","도림천","양천구청","신정네거리",
                             "까치산","용답","신답","용두","신설동","당산","영등포구청",
-                            "문래","신도림","대림","구로디지털단지","신대방","신림","봉천"};
+                            "문래","신도림","대림","구로디지털단지","신대방","신림","봉천" //여기까지 51개, 환승역X
+                         // "강남","건대입구","교대","당산","대림","동대문역사공원","동대문역사공원",
+                         // "사당","선릉","시청","신당","신도림","신설동","영등포구청",
+                         // "왕십리","을지로3가","을지로4가","잠실","충정로","합정","홍대입구", "홍대입구"
+                            };
             // Station number
             static int[] number ={228, 227, 226, 225, 224, 223,
                            222, 221, 220, 219, 218, 217,
@@ -107,7 +111,11 @@ namespace RailroProject
                            204, 203, 202, 201, 243, 242,
                            241, 240, 239, 238, 247, 248, 249,
                            2519, 244, 245, 250, 246, 237, 236,
-                           235, 234, 233, 232, 231, 230, 229};
+                           235, 234, 233, 232, 231, 230, 229, //여기까지 51개, 환승역X
+                           4307, 2729, 330, 4113, 2746, 422, 2537,
+                           433, 1023, 151, 2636, 1007, 156, 2524,
+                           1013, 320, 2536, 2815, 2532, 2623, 1264, 4203
+                           };
 
             public static int getnumberIndex(string s)
             {
@@ -118,12 +126,39 @@ namespace RailroProject
                 */
 
                 int i;
-                for (i = 0; i < 51; i++)
+                for (i = 0; i < 73 ; i++)
                 {
                     if (Node.number[i] == Int32.Parse(s)) break;
                 }
-                if (i == 51) return -1;
-
+                if (i == Node.size()) return -1;
+                if (i >= 51)
+                {
+                    switch (i)
+                    {
+                        case 51: i = 6; break;
+                        case 52: i = 16; break;
+                        case 53: i = 5; break;
+                        case 54: i = 42; break;
+                        case 55: i = 46; break;
+                        case 56: i = 23; break;
+                        case 57: i = 23; break;
+                        case 58: i = 2; break;
+                        case 59: i = 8; break;
+                        case 60: i = 27; break;
+                        case 61: i = 22; break;
+                        case 62: i = 45; break;
+                        case 63: i = 41; break;
+                        case 64: i = 43; break;
+                        case 65: i = 20; break;
+                        case 66: i = 25; break;
+                        case 67: i = 24; break;
+                        case 68: i = 12; break;
+                        case 69: i = 28; break;
+                        case 70: i = 33; break;
+                        case 71: i = 32; break;
+                        case 72: i = 32; break;
+                    }
+                }
                 //int debug = Array.BinarySearch(Node.number, Int32.Parse(s));
 
                 return i;
@@ -166,6 +201,7 @@ namespace RailroProject
             //경로 팀원마다 수정 안하게 되도 돌아가게 바꿔놈
             var projectPath = System.IO.Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.FullName;
             string path = System.IO.Directory.GetParent(projectPath.ToString()).FullName + "/";
+
             string buf;
             path = path + s;
             System.IO.StreamReader file = new System.IO.StreamReader(path, Encoding.Default);
@@ -181,7 +217,15 @@ namespace RailroProject
                         buf2 = buf2.Replace(" ", "");
                         buf2 = buf2.Replace(",", "");
                         buf2 = buf2.Replace("-", "0");
-                        flow[x, y] = Convert.ToInt32(buf2);
+                        if (x < 51 && y < 51)
+                            flow[x, y] = Convert.ToInt32(buf2);
+                        else
+                        {
+                            x = getHStation(x);
+                            y = getHStation(y);
+                            flow[x, y] += Convert.ToInt32(buf2);
+
+                        }
                     }
                 }
                 counter++;
@@ -194,6 +238,7 @@ namespace RailroProject
             //경로 팀원마다 수정 안하게 되도 돌아가게 바꿔놈
             var projectPath = System.IO.Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.FullName;
             string path = System.IO.Directory.GetParent(projectPath.ToString()).FullName + "/";
+
             string buf;
             path = path + s;
             System.IO.StreamReader file = new System.IO.StreamReader(path, Encoding.Default);
@@ -203,7 +248,7 @@ namespace RailroProject
                 {
                     string[] buf2 = new string[8];
                     string[] seperation = buf.Split('\t');
-                    int x = match(seperation[1]), y = match(seperation[2]);
+                    int x = match(seperation[1]), y = match(seperation[3]);
                     buf2[0] = seperation[0];
                     buf2[1] = seperation[1];
                     buf2[2] = Node.lineGet(Node.getnumberIndex(seperation[2]));
@@ -213,7 +258,6 @@ namespace RailroProject
                     buf2[6] = null;
                     buf2[7] = seperation[5];
 
-                    flow[x, y] = Convert.ToInt32(buf2);
                 }
                 counter++;
             }
@@ -247,13 +291,49 @@ namespace RailroProject
         // Matching
         int match(string s)
         {
+            int x;
             int num = Convert.ToInt16(s);
-            for (int x = 0; x < Node.size(); x++)
+            for (x = 0; x < 73; x++)
             {
                 if (num == Node.numberGet(x))
                     return x;
+          
             }
             return -1;
+        }
+        public int getHStation(int x)
+        {
+            //환승역 위치의 계산
+            if (x >= 51)
+            {
+                switch (x)
+                {
+                    case 51: x = 6; break;
+                    case 52: x = 16; break;
+                    case 53: x = 5; break;
+                    case 54: x = 42; break;
+                    case 55: x = 46; break;
+                    case 56: x = 23; break;
+                    case 57: x = 23; break;
+                    case 58: x = 2; break;
+                    case 59: x = 8; break;
+                    case 60: x = 27; break;
+                    case 61: x = 22; break;
+                    case 62: x = 45; break;
+                    case 63: x = 41; break;
+                    case 64: x = 43; break;
+                    case 65: x = 20; break;
+                    case 66: x = 25; break;
+                    case 67: x = 24; break;
+                    case 68: x = 12; break;
+                    case 69: x = 28; break;
+                    case 70: x = 33; break;
+                    case 71: x = 32; break;
+                    case 72: x = 32; break;
+                }
+            }
+
+            return x;
         }
         //converts digraph flow to undirected graph
         public void getUndirected()
